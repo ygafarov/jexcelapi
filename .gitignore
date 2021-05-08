@@ -1,0 +1,8 @@
+/docs/
+/build/out/
+/.idea/
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws

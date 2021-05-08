@@ -84,7 +84,8 @@
     <javadoc sourcepath="${sourceDir}"
              destdir="${docsDir}"
              public="true"
-             nodeprecated="false">
+             nodeprecated="false"
+             encoding="iso-8859-1" >
       <package name="jxl" />
       <package name="jxl.write" />
       <package name="jxl.format" />
