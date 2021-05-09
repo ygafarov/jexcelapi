@@ -1,17 +1,17 @@
 <project name="JExcelApi" default="jxl">
  
   <property name="jarFile" value="target/jxl.jar" />
-  <property name="manifestFile" value="build/jxl.mf" />
-  <property name="outputDir" value="build/out" />
+  <property name="manifestFile" value="resources/build/jxl.mf" />
+  <property name="outputDir" value="target/out" />
   <property name="docsDir" value="target/docs" />
   <property name="sourceDir" value="src" />
   <property name="resourcesDir" value="resources" />
-  <property name="xllexfile" value="build/xlformula.lex" />
-  <property name="jflexfile" value="build/xlformula.flex" />
+  <property name="xllexfile" value="resources/build/xlformula.lex" />
+  <property name="jflexfile" value="resources/build/xlformula.flex" />
   <property name="genlextargetfile" 
             value="src/jxl/biff/formula/Yylex.java" />
   <property name="loggerNameFile" value="src/jxl/common/log/LoggerName.java" />
-  <property file="build/build.properties" />
+  <property file="resources/build/build.properties" />
 
   <target name="init">
     <tstamp />
@@ -39,9 +39,9 @@
       <arg value="--jlex" />
       <arg value="--nobak" />
       <arg value="${jflexfile}" />
-      <classpath path="build/JFlex.jar" />
+      <classpath path="resources/build/JFlex.jar" />
     </java>
-    <copy file="build/Yylex.java" tofile="${genlextargetfile}" />
+    <copy file="resources/build/Yylex.java" tofile="${genlextargetfile}" />
   </target>
 
  
