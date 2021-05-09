@@ -1,26 +1,26 @@
 <project name="JExcelApi" default="jxl">
- 
+
   <property name="jarFile" value="target/jxl.jar" />
-  <property name="manifestFile" value="resources/build/jxl.mf" />
+  <property name="manifestFile" value="src/main/resources/build/jxl.mf" />
   <property name="outputDir" value="target/out" />
   <property name="docsDir" value="target/docs" />
-  <property name="sourceDir" value="src" />
-  <property name="resourcesDir" value="resources" />
-  <property name="xllexfile" value="resources/build/xlformula.lex" />
-  <property name="jflexfile" value="resources/build/xlformula.flex" />
-  <property name="genlextargetfile" 
-            value="src/jxl/biff/formula/Yylex.java" />
-  <property name="loggerNameFile" value="src/jxl/common/log/LoggerName.java" />
-  <property file="resources/build/build.properties" />
+  <property name="sourceDir" value="src/main/java" />
+  <property name="resourcesDir" value="src/main/resources" />
+  <property name="xllexfile" value="src/main/resources/build/xlformula.lex" />
+  <property name="jflexfile" value="src/main/resources/build/xlformula.flex" />
+  <property name="genlextargetfile"
+            value="src/main/java/jxl/biff/formula/Yylex.java" />
+  <property name="loggerNameFile" value="src/main/java/jxl/common/log/LoggerName.java" />
+  <property file="src/main/resources/build/build.properties" />
 
   <target name="init">
     <tstamp />
     <mkdir dir="${outputDir}" />
-    <uptodate property="xllex.notrequired" 
+    <uptodate property="xllex.notrequired"
               targetfile="${genlextargetfile}">
       <srcfiles dir="${basedir}" includes="${jflexfile}" />
     </uptodate>
-    <uptodate property="loggercopy.notrequired" 
+    <uptodate property="loggercopy.notrequired"
               targetfile="${loggerNameFile}">
       <srcfiles dir="${basedir}" includes="build.properties" />
     </uptodate>
@@ -39,22 +39,22 @@
       <arg value="--jlex" />
       <arg value="--nobak" />
       <arg value="${jflexfile}" />
-      <classpath path="resources/build/JFlex.jar" />
+      <classpath path="src/main/resources/build/JFlex.jar" />
     </java>
-    <copy file="resources/build/Yylex.java" tofile="${genlextargetfile}" />
+    <copy file="src/main/resources/build/Yylex.java" tofile="${genlextargetfile}" />
   </target>
 
- 
+
   <target name="logger" depends="init" unless="loggercopy.notrequired">
     <delete file="${loggerNameFile}" />
-    <copy file="${sourceDir}/jxl/common/log/${logger}Name.java" tofile="${loggerNameFile}" />
+    <copy file="src/main/java/jxl/common/log/${logger}Name.java" tofile="${loggerNameFile}" />
   </target>
 
   <target name="jxl" depends="init, xljflex, logger">
-    <javac destdir="${outputDir}" 
-           classpath=".:${loggerClasspath}" 
+    <javac destdir="${outputDir}"
+           classpath=".:${loggerClasspath}"
            srcdir="${sourceDir}"
-           debug="true" 
+           debug="true"
            deprecation="on">
       <include name="jxl/*.java" />
       <include name="jxl/biff/**" />
@@ -66,7 +66,7 @@
       <include name="jxl/common/log/LoggerName.java" />
       <include name="jxl/common/log/${logger}.java" />
     </javac>
-    <jar manifest="${manifestFile}" 
+    <jar manifest="${manifestFile}"
          jarfile="${jarFile}">
       <fileset dir="${outputDir}" />
       <fileset dir="${resourcesDir}">
@@ -84,8 +84,7 @@
     <javadoc sourcepath="${sourceDir}"
              destdir="${docsDir}"
              public="true"
-             nodeprecated="false"
-             encoding="iso-8859-1" >
+             nodeprecated="false">
       <package name="jxl" />
       <package name="jxl.write" />
       <package name="jxl.format" />
