@@ -1,0 +1,11 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'log4j:log4j:1.2.17'
+}
