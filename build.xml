@@ -13,7 +13,7 @@
   <property name="loggerNameFile" value="src/main/java/jxl/common/log/LoggerName.java" />
   <property file="src/main/resources/build/build.properties" />
 
-  <target name="init">
+  <target name="iniTarget">
     <tstamp />
     <mkdir dir="${outputDir}" />
     <uptodate property="xllex.notrequired"
@@ -26,7 +26,7 @@
     </uptodate>
   </target>
 
-  <target name="xllex" depends="init" unless="xllex.notrequired">
+  <target name="xllex" depends="iniTarget" unless="xllex.notrequired">
     <java classname="jlex.Main">
       <arg value="${xllexfile}" />
       <classpath path="." />
@@ -34,7 +34,7 @@
     <copy file="${xllexfile}.java" tofile="${genlextargetfile}" />
   </target>
 
-  <target name="xljflex" depends="init" unless="xllex.notrequired">
+  <target name="xljflex" depends="iniTarget" unless="xllex.notrequired">
     <java classname="JFlex.Main">
       <arg value="--jlex" />
       <arg value="--nobak" />
@@ -45,12 +45,12 @@
   </target>
 
 
-  <target name="logger" depends="init" unless="loggercopy.notrequired">
+  <target name="logger" depends="iniTarget" unless="loggercopy.notrequired">
     <delete file="${loggerNameFile}" />
     <copy file="src/main/java/jxl/common/log/${logger}Name.java" tofile="${loggerNameFile}" />
   </target>
 
-  <target name="jxl" depends="init, xljflex, logger">
+  <target name="jxl" depends="iniTarget, xljflex, logger">
     <javac destdir="${outputDir}"
            classpath=".:${loggerClasspath}"
            srcdir="${sourceDir}"
@@ -75,10 +75,10 @@
     </jar>
   </target>
 
-  <target name="jxlall" depends="clean, init, xljflex, jxl, docs">
+  <target name="jxlall" depends="cleanTarget, iniTarget, xljflex, jxl, docs">
   </target>
 
-  <target name="docs" depends="init">
+  <target name="docs" depends="iniTarget">
     <delete dir="${docsDir}" />
     <mkdir dir="${docsDir}" />
     <javadoc sourcepath="${sourceDir}"
@@ -92,7 +92,7 @@
      </javadoc>
   </target>
 
-  <target name="clean">
+  <target name="cleanTarget">
     <delete includeEmptyDirs="true">
       <fileset  dir="${outputDir}" includes="*/**" />
     </delete>
